@@ -16,27 +16,25 @@ Retorno:
 */
 void findLargestLine (int **matrix, int size, int *result) {
 	int largestLine = 0; //Para almacenar linea de 1s mas larga
-	int line_sequence_count = 0; //contador de 1s en lnea
-
   int **ptr = matrix;  // puntero al primer elemento
-  int elements = size * size; //total de elementos en la matriz
-
-  for (int i = 0; i < elements; i++) {  //recorrer la matriz
+  int line_sequence_count = 0; //contador de 1s
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
         // ptr + i: fila, *(ptr + i) + j: elemento de la fila
         // uno encontrado
         if (*(*(ptr + i) + j) == 1) {
           line_sequence_count++;
+          if (line_sequence_count > largestLine) { //si el contador encuentra una linea de 1s mas larga que la anterior esa sera la nueva linea de 1s consecutivos mas larga
+            largestLine = line_sequence_count;
+            *result = largestLine;
+          }
+        }
+        else {
+          line_sequence_count = 0;
         }
       }
-      if (line_sequence_count > largestLine) { //s el contador encuentruentra una linea de 1s mas larga que la anterior esa sera la nueva linea de 1s consecutivos mas larga
-        largestLine = line_sequence_count;
-        *result = largestLine;
-      }
-      line_sequence_count = 0; // con esto se reinicia el contador para la siguiente fila
+      
     }
-  }
 }
 
 /*
